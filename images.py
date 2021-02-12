@@ -7,8 +7,9 @@ import matplotlib.image as mpimg
 
 @st.cache
 def load_image(image_file):
-    img = Image.open(image_file)
+    img = np.array(Image.open(image_file).convert('RGB'))
     return img
+
 
 def rgb2gray(rgb):
     ''' Берётся среднее трёх цветов RGB'''
@@ -33,23 +34,15 @@ def main():
             img_details = {'filename': image_file.name, 'filetype': image_file.type, 
                             'filesize':image_file.size}
             st.write(img_details)
-            fig = px.imshow(load_image(image_file))
-            st.write(fig)
-            img_gray = rgb2gray(mpimg.imread(image_file))
-            slider = st.slider('SVD Decomposition', min_value=5, max_value=50, step=5, value=25)
-            st.write(px.imshow(preprocess_model(img_gray, slider), binary_string=True))
-
-
-
-
-          
+            img = load_image(image_file)
+            st.write(
+                px.imshow(img))
             
 
-
-
-
-
-
+            img_gray = rgb2gray(img)
+            
+            slider = st.slider('SVD Decomposition', min_value=5, max_value=50, step=5, value=25)
+            st.write(px.imshow(preprocess_model(img_gray, slider), binary_string=True))            
 
 
 
