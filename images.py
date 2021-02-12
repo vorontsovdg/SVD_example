@@ -3,7 +3,6 @@ import numpy as np
 import plotly.express as px
 from sklearn.decomposition import TruncatedSVD
 from PIL import Image
-import matplotlib.image as mpimg
 
 @st.cache
 def load_image(image_file):
